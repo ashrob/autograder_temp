@@ -1,4 +1,12 @@
 Autograder::Application.routes.draw do
+
+  match 'assignments/:id/add_student_keys' => 'assignments#add_student_keys', :via => :put
+  match 'assignments/:id/remove_student_keys' => 'assignments#remove_student_keys', :via => :put
+  match 'assignments/:id/change_due_date' => 'assignments#change_due_date', :via => :put
+  match 'assignments/:id/submit' => 'assignments#submit', :via => :put
+  resources :assignments, :only => [:create, :edit, :destroy ]
+  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

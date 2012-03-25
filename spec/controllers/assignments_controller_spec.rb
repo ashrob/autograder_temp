@@ -44,8 +44,9 @@ describe AssignmentsController do
     end 
   end
   
-  describe "Retrive a list of submissions by grading-status and student-key per assignemnt" do 
   
+  describe "Retrive a list of submissions by grading-status and student-key per assignemnt" do 
+    
   end
   
   describe "Submission for an assignment via a unique key per group/student" do 
