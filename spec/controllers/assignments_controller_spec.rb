@@ -34,12 +34,12 @@ describe AssignmentsController do
     before(:each) do
       @fake_assignment = Factory(:assignment)
     end
-    it 'should find an assignment by id'
+    it 'should find an assignment by id' do
       Assignment.should_receive(:find_by_id).with("id").and_return(@fake_assignment)
       put :add_keys, {:id => "id", :student_keys => ["s_key1", "s_key2"]}
     end
       
-    it 'should add a student-keys'
+    it 'should add a student-keys' do
       Assignment.stub(:find_by_id).and_return(@fake_assignment)
       @fake_assignment.should_receive(:add_keys).with(["s_key1", "s_key2"])
       put :add_keys, {:id => "id", :student_keys => ["s_key1", "s_key2"]}
@@ -50,12 +50,12 @@ describe AssignmentsController do
     before(:each) do
       @fake_assignment = Factory(:assignment)
     end
-    it 'should find an assignment by id'
+    it 'should find an assignment by id' do
       Assignment.should_receive(:find_by_id).with("id").and_return(@fake_assignment)
       put :delete_keys, {:id => "id", :student_keys => ["s_key1", "s_key2"]}
     end
       
-    it 'should delete a student-keys'
+    it 'should delete a student-keys' do 
       Assignment.stub(:find_by_id).and_return(@fake_assignment)
       @fake_assignment.should_receive(:delete_keys).with(["s_key1", "s_key2"])
       put :delete_keys, {:id => "id", :student_keys => ["s_key1", "s_key2"]}
@@ -85,8 +85,6 @@ describe AssignmentsController do
   describe "Submission for an assignment via a unique key per group/student" do 
     
   end
-  
-  
   
 end
 

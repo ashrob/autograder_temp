@@ -28,6 +28,7 @@ describe Assignment do
     
     it "should add the professor solution" do
     end
+  end
      
   
 end
