@@ -1,6 +1,24 @@
 require 'spec_helper'
 
 describe AssignmentsController do
+  describe "Only Professor can create an Assignment" do
+    ##check prof key
+  end
+  
+  describe "Student cannot create assignment" do
+    #check prof key
+  end
+  
+  describe "Only Professor can add a solution" do
+    #check key?
+    #call model to add solution
+    #add solution
+  end
+  
+  #check student keys before adding a new student
+  describe "check student key" do
+  end
+
   describe "Create an Assignment with an Autograder" do
     before(:each) do
       @fake_assignment = Factory(:assignment)
@@ -37,7 +55,7 @@ describe AssignmentsController do
       put :delete_keys, {:id => "id", :student_keys => ["s_key1", "s_key2"]}
     end
       
-    it 'should add a student-keys'
+    it 'should delete a student-keys'
       Assignment.stub(:find_by_id).and_return(@fake_assignment)
       @fake_assignment.should_receive(:delete_keys).with(["s_key1", "s_key2"])
       put :delete_keys, {:id => "id", :student_keys => ["s_key1", "s_key2"]}
@@ -46,13 +64,29 @@ describe AssignmentsController do
   
   
   describe "Retrive a list of submissions by grading-status and student-key per assignemnt" do 
+    before(:each) do
+       @fake_assignment = Factory(:assignment)
+       @fake_submission = [mock('submission1'), mock('submission2')] 
+    end
     
+    it 'should return a list of submission with the given student-keys' do
+       Assignment.stub(:find_by_id).and_return(@fake_assignment)
+       @fake_assignment.should_receive(:find_by_list_of_keys).with(["s_key1", "s_key2"]).and_return(@fake_submissions)
+       put :find_by_list_of_keys, {:id => "id", :student_keys => ["s_key1", "s_key2"]} 
+    end
+    
+    it 'should return a list of submisssion with the given grading-status' do
+      Assignment.stub(:find_by_id).and_return(@fake_assignment)
+      @fake_assignment.should_receive(:find_by_grading).with(["A", "B"]).and_return(@fake_submissions)
+      put :find_by_grading, {:id => "id", :status => ["A", "B"]} 
+    end 
   end
   
   describe "Submission for an assignment via a unique key per group/student" do 
-  
+    
   end
   
   
   
 end
+
