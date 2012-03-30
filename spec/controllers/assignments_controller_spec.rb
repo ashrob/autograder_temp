@@ -21,7 +21,7 @@ describe AssignmentsController do
 
   describe "Create an Assignment with an Autograder" do
     before(:each) do
-      @fake_assignment = Factory(:assignment)
+      @fake_assignment = FactoryGirl.build(:assignment)
     end
     it 'should create an Assignment instance with the given parameters' do
       Assignment.should_receive(:create!).with("assignment").and_return(@fake_assignment)

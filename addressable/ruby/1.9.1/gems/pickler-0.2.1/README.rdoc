@@ -1,0 +1,86 @@
+= Pickler
+
+Synchronize user stories in Pivotal Tracker with Cucumber features.
+
+If you aren't using Cucumber, you can still use pickler as a Pivotal Tracker
+command line client, provided you humor it with a features/ directory
+containing a tracker.yml file.
+
+== Getting started
+
+  gem install pickler --source=http://gemcutter.org
+  echo "api_token: ..."  > ~/.tracker.yml
+  echo "project_id: ..." > ~/my/app/features/tracker.yml
+  echo "ssl: [true|false]" >> ~/my/app/features/tracker.yml
+  pickler --help
+
+"ssl" defaults to false if not configured in the yml file.
+
+For details about the Pivotal Tracker API, including where to find your API
+token and project id, see http://www.pivotaltracker.com/help/api .
+
+The pull and push commands map the story's name into the "Feature: ..." line
+and the story's description with an additional two space indent into the
+feature's body.  Keep this in mind when entering stories into Pivotal Tracker.
+
+== Usage
+
+  pickler pull
+
+Download all well formed stories (basically, any story with "Scenario:" in the
+body) that are not in the "unstarted" or "unscheduled" state to the features/
+directory.
+
+  pickler push
+
+Upload all features with a tracker url in a comment on the first line.
+
+  pickler search <query>
+
+List all stories matching the given query.
+
+  pickler start <story> <name>
+
+Pull a given feature to features/<name>.feature and change its state to
+started.
+
+  pickler start <story> -
+
+Pull a given feature to a file name based on the title and change its state to
+started.  (I use this more than any other command, and you probably should,
+too).
+
+  pickler finish <story>
+
+Push a given feature and change its state to finished.
+
+  pickler install-vim-plugin [<directory>]
+
+Installs the Vim plugin to <directory>, or ~/.vim/plugin.  This plugin
+currently only provides omnicomplete (CTRL-X, CTRL-O) of feature ids in Git
+commit messages.
+
+  pickler --help
+
+Full list of commands.
+
+  pickler <command> --help
+
+Further help for a given command.
+
+== Contributing
+
+Pull requests will be ignored if they don't follow the Git convention of
+a 50 character or less subject and optional paragraphs wrapped to 72
+characters.  See http://stopwritingramblingcommitmessages.com/.
+
+If I provide you with feedback on your pull request, generally you should
+squash your changes into the previous commit when submitting a second request.
+
+== Disclaimer
+
+No warranties, expressed or implied.
+
+Notably, the push and pull commands are quite happy to blindly clobber
+features if so instructed.  Pivotal Tracker has a history to recover things
+server side.
