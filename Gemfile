@@ -6,27 +6,8 @@ gem 'sqlite3'
 gem 'jquery-rails'
 
 gem 'rabl'
-<<<<<<< HEAD
 gem 'haml'
 
-=======
-gem 'require_relative'
-gem 'htmlentities'
-gem 'json'
-gem 'bluecloth', '>= 2.0.5'
-gem 'coderay', '~> 0.9'
-gem 'kaminari'
-gem 'RedCloth', '~> 4.2.8'
-gem 'addressable', '~> 2.2.7', :require => 'addressable/uri'
-gem 'mini_magick', '1.3.3', :require => 'mini_magick'
-gem 'uuidtools', '~>2.1.1'
-gem 'flickraw-cached'
-gem 'rubypants', '~> 0.2.0'
-gem 'rake', '>= 0.9.2' 
-gem 'acts_as_list'
-gem 'acts_as_tree_rails3'
-gem 'recaptcha', :require => 'recaptcha/rails', :branch => 'rails3'
->>>>>>> d32ef97de903f50e891f2510ca885b9f0c8823ac
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -38,19 +19,8 @@ group :assets do
 end
 
 group :test, :development do
-<<<<<<< HEAD
   gem 'rspec-rails'
   gem 'factory_girl', '2.2.0'
-=======
- # gem 'rspec-rails'
-  gem 'ruby-debug19'
-  gem 'factory_girl', '2.2.0'
-  gem 'webrat'
-  gem 'rspec-rails', '>= 2.0.0.beta.20'
-  gem 'simplecov', :require => false
-  gem 'sqlite3'
-  gem 'cucumber-rails'
->>>>>>> d32ef97de903f50e891f2510ca885b9f0c8823ac
   gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions  
   gem 'database_cleaner' # to clear Cucumber's test database between runs
   gem 'capybara'         # lets Cucumber pretend to be a web browser
