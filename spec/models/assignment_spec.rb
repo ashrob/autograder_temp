@@ -5,7 +5,7 @@ describe Assignment do
   
   describe "add student keys to the assignment" do
     before :each do 
-      @assignment = Factory(:assignment)
+      @assignment = mock(:assignment)
 
     end
     it "should create student for each key passed to it in a list" do

@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe AssignmentsController do
+  #render_views
+
   describe "Only Professor can create an Assignment" do
     ##check prof key
   end
@@ -21,58 +23,63 @@ describe AssignmentsController do
 
   describe "Create an Assignment with an Autograder" do
     before(:each) do
-      @fake_assignment = Factory(:assignment)
+      @fake_assignment = mock(:assignment)
     end
     it 'should create an Assignment instance with the given parameters' do
-      Assignment.should_receive(:create!).with("assignment").and_return(@fake_assignment)
-      @fake_assignment.should_receive(:add_keys).with(["s_key1", "s_key2"])
-      put :create, {:prof_key => "prof_key", :assignment => "assignment", :student_keys => ["s_key1", "s_key2"]}
+      Assignment.should_receive(:create!).with(:prof_key => "prof_key", :due_date => "due_date").and_return(@fake_assignment)
+      @fake_assignment.should_receive(:add_student_keys).with(["s_key1", "s_key2"])
+      @fake_assignment.should_receive(:save!)
+      post :create, {:prof_key => "prof_key", :due_date => "due_date", :student_keys => "[s_key1, s_key2]"}
     end
   end
   
   describe "Addition of student keys per assignment" do
     before(:each) do
-      @fake_assignment = Factory(:assignment)
+      @fake_assignment = mock(:assignment)
     end
     it 'should find an assignment by id' do
       Assignment.should_receive(:find_by_id).with("id").and_return(@fake_assignment)
-      put :add_keys, {:id => "id", :student_keys => ["s_key1", "s_key2"]}
+      @fake_assignment.should_receive(:save!)
+      put :add_student_keys, {:id => "id", :student_keys => "[s_key1, s_key2]"}
     end
       
     it 'should add a student-keys' do
       Assignment.stub(:find_by_id).and_return(@fake_assignment)
-      @fake_assignment.should_receive(:add_keys).with(["s_key1", "s_key2"])
-      put :add_keys, {:id => "id", :student_keys => ["s_key1", "s_key2"]}
+      @fake_assignment.should_receive(:add_student_keys).with(["s_key1", "s_key2"])
+      @fake_assignment.should_receive(:save!)
+      put :add_student_keys, {:id => "id", :student_keys => "[s_key1, s_key2]"}
     end 
   end
   
   describe "Deletion of student keys per assignment" do
     before(:each) do
-      @fake_assignment = Factory(:assignment)
+      @fake_assignment = mock(:assignment)
     end
     it 'should find an assignment by id' do
       Assignment.should_receive(:find_by_id).with("id").and_return(@fake_assignment)
-      put :delete_keys, {:id => "id", :student_keys => ["s_key1", "s_key2"]}
+      @fake_assignment.should_receive(:save!)
+      put :delete_student_keys, {:id => "id", :student_keys => "[s_key1, s_key2]"}
     end
       
     it 'should delete a student-keys' do 
       Assignment.stub(:find_by_id).and_return(@fake_assignment)
-      @fake_assignment.should_receive(:delete_keys).with(["s_key1", "s_key2"])
-      put :delete_keys, {:id => "id", :student_keys => ["s_key1", "s_key2"]}
+      @fake_assignment.should_receive(:delete_student_keys).with(["s_key1", "s_key2"])
+      @fake_assignment.should_receive(:save!)
+      put :delete_student_keys, {:id => "id", :student_keys => "[s_key1, s_key2]"}
     end 
   end
   
   
   describe "Retrive a list of submissions by grading-status and student-key per assignemnt" do 
     before(:each) do
-       @fake_assignment = Factory(:assignment)
+       @fake_assignment = mock(:assignment)
        @fake_submission = [mock('submission1'), mock('submission2')] 
     end
     
     it 'should return a list of submission with the given student-keys' do
        Assignment.stub(:find_by_id).and_return(@fake_assignment)
        @fake_assignment.should_receive(:find_by_list_of_keys).with(["s_key1", "s_key2"]).and_return(@fake_submissions)
-       put :find_by_list_of_keys, {:id => "id", :student_keys => ["s_key1", "s_key2"]} 
+       put :find_by_list_of_keys, {:id => "id", :student_keys => "[s_key1, s_key2]"} 
     end
     
     it 'should return a list of submisssion with the given grading-status' do
