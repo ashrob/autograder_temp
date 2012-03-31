@@ -4,8 +4,8 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 
-require 'simplecov'
-SimpleCov.start 'rails'
+#require 'simplecov'
+#SimpleCov.start 'rails'
 
 
 require 'factory_girl'
