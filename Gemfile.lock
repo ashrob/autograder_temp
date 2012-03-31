@@ -1,6 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    RedCloth (4.2.9)
     actionmailer (3.1.0)
       actionpack (= 3.1.0)
       mail (~> 2.3.0)
@@ -30,11 +31,14 @@ GEM
       activesupport (= 3.1.0)
     activesupport (3.1.0)
       multi_json (~> 1.0)
+    acts_as_list (0.1.5)
+    acts_as_tree_rails3 (0.1.0)
     addressable (2.2.7)
     ansi (1.4.2)
     archive-tar-minitar (0.5.2)
     arel (2.2.3)
     bcrypt-ruby (3.0.1)
+    bluecloth (2.2.0)
     builder (3.0.0)
     capybara (1.1.2)
       mime-types (>= 1.16)
@@ -45,6 +49,7 @@ GEM
       xpath (~> 0.1.4)
     childprocess (0.3.1)
       ffi (~> 1.0.6)
+    coderay (0.9.8)
     coffee-rails (3.1.1)
       coffee-script (>= 2.2.0)
       railties (~> 3.1.0)
@@ -74,15 +79,23 @@ GEM
     factory_girl (2.2.0)
       activesupport
     ffi (1.0.11)
+    flickraw (0.9.5)
+    flickraw-cached (20110920)
+      flickraw (>= 0.9)
     gherkin (2.9.1)
       json (>= 1.4.6)
     haml (3.1.4)
     hike (1.2.1)
+    htmlentities (4.3.1)
     i18n (0.6.0)
     jquery-rails (1.0.19)
       railties (~> 3.0)
       thor (~> 0.14)
     json (1.6.5)
+    kaminari (0.13.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      railties (>= 3.0.0)
     launchy (2.1.0)
       addressable (~> 2.2.6)
     libv8 (3.3.10.4)
@@ -93,6 +106,8 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.18)
+    mini_magick (1.3.3)
+      subexec (~> 0.0.4)
     multi_json (1.1.0)
     nokogiri (1.5.2)
     pickler (0.2.1)
@@ -128,6 +143,8 @@ GEM
     rake (0.9.2.2)
     rdoc (3.12)
       json (~> 1.4)
+    recaptcha (0.3.4)
+    require_relative (1.0.3)
     rspec (2.9.0)
       rspec-core (~> 2.9.0)
       rspec-expectations (~> 2.9.0)
@@ -151,6 +168,7 @@ GEM
       ruby-debug-base19 (>= 0.11.19)
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
+    rubypants (0.2.0)
     rubyzip (0.9.6.1)
     sass (3.1.15)
     sass-rails (3.1.6)
@@ -163,11 +181,16 @@ GEM
       ffi (~> 1.0)
       multi_json (~> 1.0)
       rubyzip
+    simplecov (0.6.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.5.3)
+    simplecov-html (0.5.3)
     sprockets (2.0.3)
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.5)
+    subexec (0.0.4)
     term-ansicolor (1.0.7)
     therubyracer (0.9.10)
       libv8 (~> 3.3.10)
@@ -182,6 +205,11 @@ GEM
     uglifier (1.2.3)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
+    uuidtools (2.1.2)
+    webrat (0.7.3)
+      nokogiri (>= 1.2.0)
+      rack (>= 1.0)
+      rack-test (>= 0.5.3)
     xpath (0.1.4)
       nokogiri (~> 1.3)
 
@@ -189,21 +217,43 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  RedCloth (~> 4.2.8)
+  acts_as_list
+  acts_as_tree_rails3
+  addressable (~> 2.2.7)
+  bluecloth (>= 2.0.5)
+  capybara
+  coderay (~> 0.9)
   coffee-rails (~> 3.1.0)
   cucumber-rails
   cucumber-rails-training-wheels
   database_cleaner
   factory_girl (= 2.2.0)
+<<<<<<< HEAD
   haml
+=======
+  flickraw-cached
+  htmlentities
+>>>>>>> d32ef97de903f50e891f2510ca885b9f0c8823ac
   jquery-rails
+  json
+  kaminari
   launchy
+  mini_magick (= 1.3.3)
   pickler (~> 0.2.1)
   rabl
   rails (= 3.1.0)
-  rspec-rails
+  rake (>= 0.9.2)
+  recaptcha
+  require_relative
+  rspec-rails (>= 2.0.0.beta.20)
   ruby-debug19
+  rubypants (~> 0.2.0)
   sass-rails (~> 3.1.0)
+  simplecov
   sqlite3
   therubyracer
   turn
   uglifier
+  uuidtools (~> 2.1.1)
+  webrat
