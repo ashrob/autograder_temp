@@ -4,6 +4,8 @@ Autograder::Application.routes.draw do
   match 'assignments/:id/remove_student_keys' => 'assignments#remove_student_keys', :via => :put
   match 'assignments/:id/change_due_date' => 'assignments#change_due_date', :via => :put
   match 'assignments/:id/submit' => 'assignments#submit', :via => :put
+  match 'assignments/:id/find_by_list_of_keys' => 'assignments#find_by_list_of_keys', :via => :get
+  match 'assignments/:id/find_by_grading' => 'assignments#find_by_grading', :via => :get
   resources :assignments, :only => [:create, :edit, :destroy ]
   
 

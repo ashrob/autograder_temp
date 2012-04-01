@@ -15,4 +15,11 @@ class Assignment < ActiveRecord::Base
     self.due_date = due_date
   end
   
+  def find_by_keys(student_keys)
+  end
+  
+  def find_by_status(status)
+  end
+  
+  
 end

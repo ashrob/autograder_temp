@@ -3,24 +3,6 @@ require 'spec_helper'
 describe AssignmentsController do
   #render_views
 
-  describe "Only Professor can create an Assignment" do
-    ##check prof key
-  end
-  
-  describe "Student cannot create assignment" do
-    #check prof key
-  end
-  
-  describe "Only Professor can add a solution" do
-    #check key?
-    #call model to add solution
-    #add solution
-  end
-  
-  #check student keys before adding a new student
-  describe "check student key" do
-  end
-
   describe "Create an Assignment with an Autograder" do
     before(:each) do
       @fake_assignment = mock(:assignment)
@@ -80,19 +62,43 @@ describe AssignmentsController do
     
     it 'should return a list of submission with the given student-keys' do
        Assignment.stub(:find_by_id).and_return(@fake_assignment)
-       @fake_assignment.should_receive(:find_by_keys).with(["s_key1", "s_key2"]).and_return(@fake_submissions)
-       put :find_by_list_of_keys, {:id => "id", :student_keys => "[s_key1, s_key2]"} 
+       @fake_assignment.stub(:find_by_keys).with(["s_key1", "s_key2"]).and_return(@fake_submissions)
+       get :find_by_list_of_keys, {:id => "id", :student_keys => "[s_key1, s_key2]"} 
     end
     
-    it 'should return a list of submisssion with the given grading-status' do
+    it 'should return a list of submission with the given grading-status' do
       Assignment.stub(:find_by_id).and_return(@fake_assignment)
-      @fake_assignment.should_receive(:find_by_status).with(["A", "B"]).and_return(@fake_submissions)
-      put :find_by_grading, {:id => "id", :status => ["A", "B"]} 
+      @fake_assignment.stub(:find_by_status).with(["A", "B"]).and_return(@fake_submissions)
+      get :find_by_grading, {:id => "id", :status => ["A", "B"]} 
     end 
   end
   
+  describe "Change due date for assignment" do
+    before(:each) do
+      @fake_assignment = mock(:assignment)
+    end
+    it 'should find an assignment and change due date' do
+      Assignment.should_receive(:find_by_id).with("id").and_return(@fake_assignment)
+      @fake_assignment.stub(:change_due_date).with("04/18/2012")
+      put :change_due_date, {:id => "id", :due_date=> "04/18/2012", :student_keys => "[s_key1, s_key2]"}
+    end
+  
+  end
+  
+
   describe "Submission for an assignment via a unique key per group/student" do 
+    before(:each) do	
+    	@fake_assignment = mock(:assignment)
+    	@fake_student = mock(:student)
+	    @fake_submission = mock('submission1')
+    end
     
+    it 'should submit a submission with a student key' do
+      Assignment.should_receive(:find_by_id).with("id").and_return(@fake_assignment)
+      @fake_student.stub(:add_submission).with("submission1").and_return(@fake_submission)
+      put :submit, {:id => "id", :student_keys => "[s_key1, s_key2]"}
+    end
+   
   end
   
 end

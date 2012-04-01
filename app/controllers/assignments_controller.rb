@@ -60,4 +60,13 @@ class AssignmentsController < ApplicationController
   end
   
   
+  def find_by_list_of_keys
+    @assignment = Assignment.find_by_id(params[:id])
+  end
+  
+  def find_by_grading
+    @assignment = Assignment.find_by_id(params[:id])
+  end
+  
+  
 end
