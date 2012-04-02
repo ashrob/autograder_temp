@@ -80,6 +80,7 @@ describe AssignmentsController do
     it 'should find an assignment and change due date' do
       Assignment.should_receive(:find_by_id).with("id").and_return(@fake_assignment)
       @fake_assignment.stub(:change_due_date).with("04/18/2012")
+      @fake_assignment.stub(:save!)
       put :change_due_date, {:id => "id", :due_date=> "04/18/2012", :student_keys => "[s_key1, s_key2]"}
     end
   
@@ -90,13 +91,18 @@ describe AssignmentsController do
     before(:each) do	
     	@fake_assignment = mock(:assignment)
     	@fake_student = mock(:student)
-	    @fake_submission = mock('submission1')
+    	@fake_student_list = mock(:student_list)
+	    @fake_submission = mock(:submission1)
+	    
     end
     
-    it 'should submit a submission with a student key' do
+    it 'should make a successful submission with a student key' do
       Assignment.should_receive(:find_by_id).with("id").and_return(@fake_assignment)
-      @fake_student.stub(:add_submission).with("submission1").and_return(@fake_submission)
-      put :submit, {:id => "id", :student_keys => "[s_key1, s_key2]"}
+      @fake_assignment.stub(:students).and_return(@fake_student_list)
+      @fake_student_list.stub(:any?).and_return(true)
+      @fake_student_list.stub(:find_by_student_key).with("s_key1").and_return(@fake_student)
+      @fake_student.stub(:add_submission).with("submission")
+      put :submit, {:id => "id", :student_key => "s_key1", :submission => "submission"}
     end
    
   end
