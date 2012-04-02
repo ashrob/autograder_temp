@@ -50,8 +50,8 @@ class AssignmentsController < ApplicationController
   
   def submit
     @assignment = Assignment.find_by_id(params[:id])
-    if(@assignment.students.any? {|std| std.student_key == params[:student_key]})
-      @student = @assignment.students.find_by_student_key(params[:student_key])
+    if(@assignment.students.any? {|std| std.student_key == params[:student_keys]})
+      @student = @assignment.students.find_by_student_key(params[:student_keys])
       @student.add_submission(params[:submission])
       render :submit_successful 
     else
@@ -62,10 +62,13 @@ class AssignmentsController < ApplicationController
   
   def find_by_list_of_keys
     @assignment = Assignment.find_by_id(params[:id])
+    @submissoin = @assignment.find_by_keys(params[:student_keys])
+   
   end
   
   def find_by_grading
     @assignment = Assignment.find_by_id(params[:id])
+    @submission = @assignment.find_by_status(params[:status])
   end
   
   

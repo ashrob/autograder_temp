@@ -65,19 +65,18 @@ describe AssignmentsController do
   describe "Retrive a list of submissions by grading-status and student-key per assignemnt" do 
     before(:each) do
        @fake_assignment = mock(:assignment)
-       @fake_submission = [mock('submission1'), mock('submission2')] 
     end
     
     it 'should return a list of submission with the given student-keys' do
        Assignment.stub(:find_by_id).and_return(@fake_assignment)
-       @fake_assignment.stub(:find_by_keys).with(["s_key1", "s_key2"]).and_return(@fake_submissions)
-       get :find_by_list_of_keys, {:id => "id", :student_keys => "[s_key1, s_key2]"} 
+       @fake_assignment.should_receive(:find_by_keys).with(["s_key1", "s_key2"])
+       get :find_by_list_of_keys, {:id => "id", :student_keys => ["s_key1", "s_key2"]} 
     end
     
     it 'should return a list of submission with the given grading-status' do
       Assignment.stub(:find_by_id).and_return(@fake_assignment)
-      @fake_assignment.stub(:find_by_status).with(["A", "B"]).and_return(@fake_submissions)
-      get :find_by_grading, {:id => "id", :status => ["A", "B"]} 
+      @fake_assignment.should_receive(:find_by_status).with("[A, B]").and_return(@fake_submissions)
+      get :find_by_grading, {:id => "id", :status => "[A, B]"} 
     end 
   end
   
@@ -87,7 +86,7 @@ describe AssignmentsController do
     end
     it 'should find an assignment and change due date' do
       Assignment.should_receive(:find_by_id).with("id").and_return(@fake_assignment)
-      @fake_assignment.stub(:change_due_date).with("04/18/2012")
+      @fake_assignment.should_receive(:change_due_date).with("04/18/2012")
       @fake_assignment.should_receive(:save!)
       put :change_due_date, {:id => "id", :due_date => "04/18/2012", :student_keys => "s_key1"}
     end
