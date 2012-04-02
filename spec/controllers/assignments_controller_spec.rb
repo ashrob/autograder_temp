@@ -105,8 +105,7 @@ describe AssignmentsController do
 	    @fake_submission = mock(:submission1)
 	    
     end
-    
-    it 'should make a successful submission with a student key' do
+    it 'should retrive the correct assignment by the id' do
       Assignment.should_receive(:find_by_id).with("id").and_return(@fake_assignment)
       @fake_assignment.stub(:students).and_return(@fake_student_list)
       @fake_student_list.stub(:any?).and_return(true)
@@ -114,7 +113,32 @@ describe AssignmentsController do
       @fake_student.stub(:add_submission).with("submission")
       put :submit, {:id => "id", :student_key => "s_key1", :submission => "submission"}
     end
-   
+    it 'should make a successful submission with a student key' do
+      Assignment.stub(:find_by_id).and_return(@fake_assignment)
+      @fake_assignment.stub(:students).and_return(@fake_student_list)
+      @fake_student_list.stub(:any?).and_return(true)
+      @fake_student_list.should_receive(:find_by_student_key).with("s_key1").and_return(@fake_student)
+      @fake_student.should_receive(:add_submission).with("submission")
+      put :submit, {:id => "id", :student_key => "s_key1", :submission => "submission"}
+    end
+    it 'should make a successful submission with a student key and render submit_successful' do
+      Assignment.stub(:find_by_id).and_return(@fake_assignment)
+      @fake_assignment.stub(:students).and_return(@fake_student_list)
+      @fake_student_list.stub(:any?).and_return(true)
+      @fake_student_list.should_receive(:find_by_student_key).with("s_key1").and_return(@fake_student)
+      @fake_student.should_receive(:add_submission).with("submission")
+      put :submit, {:id => "id", :student_key => "s_key1", :submission => "submission"}
+      should render_template :submit_successful 
+    end
+    it 'should make an unsuccessful submission with a student key' do
+      Assignment.should_receive(:find_by_id).with("id").and_return(@fake_assignment)
+      @fake_assignment.should_receive(:students).and_return(@fake_student_list)
+      @fake_student_list.should_receive(:any?).and_return(false)
+      @fake_student_list.should_not_receive(:find_by_student_key)
+      @fake_student.should_not_receive(:add_submission).with("submission")
+      put :submit, {:id => "id", :student_key => "s_key1", :submission => "submission"}
+    end
+    
   end
 
 end

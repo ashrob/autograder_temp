@@ -50,8 +50,8 @@ class AssignmentsController < ApplicationController
   
   def submit
     @assignment = Assignment.find_by_id(params[:id])
-    if(@assignment.students.any? {|std| std.student_key == params[:student_keys]})
-      @student = @assignment.students.find_by_student_key(params[:student_keys])
+    if(@assignment.students.any? {|std| std.student_key == params[:student_key]})
+      @student = @assignment.students.find_by_student_key(params[:student_key])
       @student.add_submission(params[:submission])
       render :submit_successful 
     else
