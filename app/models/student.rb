@@ -7,4 +7,7 @@ class Student < ActiveRecord::Base
     self.submissions << Submission.create(:body => submission)
   end
   
+  def find_by_student_keys(student_keys)
+  end
+  
 end

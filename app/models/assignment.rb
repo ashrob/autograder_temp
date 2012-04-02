@@ -16,9 +16,11 @@ class Assignment < ActiveRecord::Base
   end
   
   def find_by_keys(student_keys)
+    self.students.find_all{|std| student_keys.include?(std.student_key)}
   end
   
   def find_by_status(status)
+    self.students.find_all{|sta| status.include?(sta.status)}
   end
   
   

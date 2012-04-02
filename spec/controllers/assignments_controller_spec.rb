@@ -2,6 +2,14 @@ require 'spec_helper'
 
 describe AssignmentsController do
   #render_views
+  
+  describe "check keys" do
+    it 'should check if it is a student key' do
+    end
+    
+    it 'should check if it is a professor key' do
+    end
+  end
 
   describe "Create an Assignment with an Autograder" do
     before(:each) do
@@ -73,6 +81,31 @@ describe AssignmentsController do
     end 
   end
   
+
+  describe "Change due date for assignment" do
+    before(:each) do
+      @fake_assignment = mock(:assignment)
+    end
+    it 'should find an assignment and change due date' do
+      Assignment.should_receive(:find_by_id).with("id").and_return(@fake_assignment)
+      @fake_assignment.stub(:change_due_date).with("04/18/2012")
+      @fake_assignment.should_receive(:save!)
+      put :change_due_date, {:id => "id", :due_date => "04/18/2012", :student_keys => "s_key1"}
+    end
+  
+  end
+  
+
+  describe "Submission for an assignment via a unique key per group/student" do 
+    before(:each) do	
+    	@fake_assignment = mock(:assignment)
+    	@fake_student = mock(:student)
+	    @fake_submission = mock('submission1')
+    end
+    
+    it 'should submit a submission with a student key' do
+    end   
+  end
 
   
 end
