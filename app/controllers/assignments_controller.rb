@@ -54,7 +54,7 @@ class AssignmentsController < ApplicationController
     if(@assignment.students.any? {|std| std.student_key == params[:student_key]})
       @student = @assignment.students.find_by_student_key(params[:student_key])
       @student.add_submission(params[:submission])
-      @student.save()
+      @student.save
       render :submit_successful 
     else
       render :submit_fail
@@ -69,7 +69,8 @@ class AssignmentsController < ApplicationController
 
   def retrieve_all_submissions
     @assignment = Assignment.find_by_id(params[:id])
-    @subimssions = @assignment.submissions
+    @submissions = @assignment.submissions
+    render :retrieve_all_submissions
   end
   
   def retrieve_submission_by_student_key

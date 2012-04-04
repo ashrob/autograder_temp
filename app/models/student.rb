@@ -4,10 +4,7 @@ class Student < ActiveRecord::Base
   has_many   :submissions 
   
   def add_submission(submission)
-    submission = Submission.create(:body => submission)
-    self.submissions << submission
-    submission.save!
-    self.save!
+    self.submissions << Submission.create!(:body => submission)
   end
   
   def find_by_student_keys(student_keys)

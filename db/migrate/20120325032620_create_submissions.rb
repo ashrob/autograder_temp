@@ -3,6 +3,7 @@ class CreateSubmissions < ActiveRecord::Migration
     create_table :submissions do |t|
       t.text :body
       t.string :status
+      t.integer :student_id
       t.timestamps
     end
   end
