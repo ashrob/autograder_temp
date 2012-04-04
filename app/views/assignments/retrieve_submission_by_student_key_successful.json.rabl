@@ -1,3 +1,9 @@
-collection @submissions
+collection @submissions 
 
-attributes :student, :body
+child :student do 
+    attributes :student_key  
+end
+
+attributes :output, :body, :created_at
+
+

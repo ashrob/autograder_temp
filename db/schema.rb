@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20120325032620) do
 
   create_table "submissions", :force => true do |t|
     t.text     "body"
+    t.text     "output"
     t.string   "status"
     t.integer  "student_id"
     t.datetime "created_at"
