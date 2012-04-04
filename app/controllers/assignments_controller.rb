@@ -1,6 +1,6 @@
 class AssignmentsController < ApplicationController
 
-  respond_to :json, :xml
+  respond_to :json
   
   #for debugging, no spec needed
   def show
@@ -16,6 +16,7 @@ class AssignmentsController < ApplicationController
        @assignment.add_student_keys(student_keys)
     end
     @assignment.save!()
+    render :create
   end
   
   
@@ -53,23 +54,35 @@ class AssignmentsController < ApplicationController
     if(@assignment.students.any? {|std| std.student_key == params[:student_key]})
       @student = @assignment.students.find_by_student_key(params[:student_key])
       @student.add_submission(params[:submission])
+      @student.save()
       render :submit_successful 
     else
       render :submit_fail
     end
   end
   
-  
-  def find_by_list_of_keys
+  def retrieve_submissions_by_status
     @assignment = Assignment.find_by_id(params[:id])
-    @submissoin = @assignment.find_by_keys(params[:student_keys])
-   
+    @subimssions = @assignment.submissions.find_all_by_status(params[:status])
+    
+  end
+
+  def retrieve_all_submissions
+    @assignment = Assignment.find_by_id(params[:id])
+    @subimssions = @assignment.submissions
   end
   
-  def find_by_grading
+  def retrieve_submission_by_student_key
     @assignment = Assignment.find_by_id(params[:id])
-    @submission = @assignment.find_by_status(params[:status])
+    if(@assignment.students.any? {|std| std.student_key == params[:student_key]})
+    
+      @subimssions = @assignment.students.find_by_student_key(params[:student_key]).submissions 
+      render :retrieve_submission_by_student_key_successful 
+    else
+      render :invalid_student_key
+    end    
   end
+  
   
   
 end
